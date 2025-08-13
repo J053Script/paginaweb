@@ -8,14 +8,16 @@
 
     <!-- Música con texto romántico -->
     <div class="musica">
-      <p>🎵 Mi música favorita para ti, la escucho cuando te pienso 💖</p>
-      <audio controls autoplay loop>
-        <source src="./assets/musica.mp4" type="audio/mp4" />
-        Tu navegador no soporta audio.
-      </audio>
+      <div class="texto-musica">
+        <p>🎵 Mi música favorita para ti, la escucho cuando te pienso 💖</p>
+        <audio controls autoplay loop>
+          <source src="./assets/musica.mp4" type="audio/mp4" />
+          Tu navegador no soporta audio.
+        </audio>
+      </div>
     </div>
 
-    <!-- Carta de perdón -->
+    <!-- Carta de perdón estilo libreta -->
     <section class="carta">
       <h3>💌 Para ti 💌</h3>
       <p>
@@ -35,17 +37,11 @@
       <p class="firma">Con cariño, José</p>
     </section>
 
-    <!-- Contenido principal -->
-    <main class="contenido">
-      <!-- Galería de imágenes con esquinas decoradas -->
-      <div class="galeria">
-        <div class="imagen" v-for="(img, index) in imagenes" :key="index">
-          <span class="emoji-topleft">🥰</span>
-          <img :src="img" alt="imagen de amor" />
-          <span class="emoji-bottomright">🥰</span>
-        </div>
-      </div>
-    </main>
+    <!-- Imagen debajo de la carta -->
+    <div class="imagen-debajo">
+      <img src="./assets/imagen.png" alt="Imagen debajo de la carta" />
+      <p class="texto-imagen">la ise pensando en ti espero que no te moleste💖</p>
+    </div>
 
     <!-- Pie de página -->
     <footer class="pie">
@@ -57,16 +53,7 @@
 
 <script>
 export default {
-  name: 'App',
-  data() {
-    return {
-      imagenes: [
-        require('./assets/imagen1.jpeg'),
-        require('./assets/imagen2.jpeg'),
-        require('./assets/imagen3.jpeg'),
-      ]
-    };
-  }
+  name: 'App'
 };
 </script>
 
@@ -77,7 +64,7 @@ export default {
   font-family: 'Pacifico', cursive;
   background-color: #fff0f5;
   margin: 0;
-  padding-top: 130px; /* espacio para encabezado fijo */
+  padding-top: 130px;
 }
 
 /* ENCABEZADO */
@@ -107,99 +94,85 @@ export default {
 .musica {
   margin: 40px auto;
   text-align: center;
+}
+
+.texto-musica {
+  display: inline-block;
+  background-color: #ffe4ec; /* Fondo suave para que resalte el texto */
+  padding: 20px 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   color: #e91e63;
   font-size: 1.2em;
 }
 
-.musica audio {
-  margin-top: 10px;
-}
-
-/* CARTA */
+/* CARTA estilo libreta */
 .carta {
-  background-color: #ffe4ec;
-  border-radius: 20px;
-  padding: 20px;
-  margin: 30px auto;
+  position: relative;
+  background-color: #fffaf0; /* Color tipo papel */
+  border: 2px solid #d4a373;
+  border-radius: 10px;
+  padding: 30px 20px 50px 20px;
+  margin: 40px auto;
   width: 80%;
-  color: #d81b60;
-  box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
-  text-align: center;
+  max-width: 600px;
+  color: #333;
+  text-align: left;
   font-size: 1.1em;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    #fffaf0 0px,
+    #fffaf0 24px,
+    #d0e1f9 25px
+  ); /* Rayas tipo libreta */
 }
 
+/* Efecto enrollado inferior */
+.carta::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: radial-gradient(circle at 50% 0%, #fffaf0 0%, #fffaf0 50%, transparent 70%);
+  border-radius: 50% / 100%;
+}
+
+/* Título de la carta */
 .carta h3 {
   margin-bottom: 15px;
-  font-size: 1.5em;
-}
-
-.carta .firma {
-  margin-top: 15px;
-  font-style: italic;
-}
-
-/* CONTENIDO PRINCIPAL */
-.contenido {
+  font-size: 1.6em;
   text-align: center;
-  padding: 30px 20px;
 }
 
-.galeria {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+/* Firma */
+.carta .firma {
+  margin-top: 20px;
+  font-style: italic;
+  text-align: right;
 }
 
-/* CADA IMAGEN */
-.imagen {
-  position: relative;
-  border: 5px dashed pink;
-  padding: 10px;
-  border-radius: 20px;
-  background-image: url('https://i.imgur.com/yIDlg1R.png');
-  background-size: contain;
-  box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
+/* IMAGEN DEBAJO */
+.imagen-debajo {
+  margin: 40px auto;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
 }
 
-.imagen img {
-  width: 250px;
-  height: auto;
-  border-radius: 15px;
+.imagen-debajo img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
 }
 
-/* EMOJIS EN ESQUINAS */
-.imagen::before,
-.imagen::after {
-  content: "❤️";
-  position: absolute;
-  font-size: 1.5rem;
-}
-
-.imagen::before {
-  top: -10px;
-  left: -10px;
-}
-
-.imagen::after {
-  bottom: -10px;
-  right: -10px;
-}
-
-.emoji-topleft,
-.emoji-bottomright {
-  position: absolute;
-  font-size: 1.5rem;
-}
-
-.emoji-topleft {
-  top: -10px;
-  right: -10px;
-}
-
-.emoji-bottomright {
-  bottom: -10px;
-  left: -10px;
+.texto-imagen {
+  margin-top: 10px;
+  font-size: 1.2em;
+  color: #e91e63;
+  font-weight: bold;
 }
 
 /* PIE DE PÁGINA */
